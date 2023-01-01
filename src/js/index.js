@@ -1,6 +1,7 @@
 import { gsap } from "gsap";
 import { Item } from "./item";
 import { Preview } from "./preview";
+import imagesLoaded from "imagesloaded";
 
 const images = document.querySelectorAll("img");
 let isLoaded = false;
