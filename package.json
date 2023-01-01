@@ -1,0 +1,21 @@
+{
+  "name": "features-twenty",
+  "version": "1.0.0",
+  "description": "Web app utilizing animation libraries",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel",
+    "build": "parcel build"
+  },
+  "author": "Kenny",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.8.2"
+  },
+  "dependencies": {
+    "gsap": "^3.11.4",
+    "imagesloaded": "^5.0.0",
+    "split-type": "^0.3.3"
+  }
+}
