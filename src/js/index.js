@@ -122,21 +122,26 @@ const openItem = (item) => {
       // pointer events none to the content
       contentEl.classList.add("content--hidden");
     }, "start")
+    .to(contentEl, {
+      rotation: 90,
+      opacity: 0,
+      height: 0,
+    })
 
     .addLabel("start", 0)
     .set(
       [item.preview.DOM.innerElements, item.preview.DOM.backCtrl],
       {
         opacity: 0,
-      },
-      "start"
+      }
+      // "start"
     )
     .to(
       overlayRows,
       {
         scaleY: 1,
-      },
-      "start"
+      }
+      // "start"
     )
 
     .addLabel("content", "start+=0.6")
@@ -148,8 +153,8 @@ const openItem = (item) => {
         frameEl,
         {
           opacity: 0,
-        },
-        "start"
+        }
+        // "start"
       );
       item.preview.DOM.el.classList.add("preview--current");
     }, "content")
@@ -282,6 +287,16 @@ const closeItem = (item) => {
         },
       },
       "grid"
+    )
+
+    .to(
+      contentEl,
+      {
+        rotation: 0,
+        opacity: 1,
+        height: "auto",
+      },
+      1
     );
 };
 
