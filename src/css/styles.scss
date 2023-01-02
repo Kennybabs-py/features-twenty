@@ -111,6 +111,7 @@ main {
   grid-area: content;
   max-width: 600px;
   margin: 0 auto;
+  min-height: 300px;
 
   @media (min-width: 900px) {
     max-width: none;
