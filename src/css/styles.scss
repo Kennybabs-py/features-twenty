@@ -223,10 +223,10 @@ main {
 .preview {
   opacity: 0;
   pointer-events: none;
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
-  padding-bottom: 3rem;
+  padding-bottom: 2rem;
   top: 0;
   color: var(--color-text-alt);
 
