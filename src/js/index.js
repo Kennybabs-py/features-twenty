@@ -155,8 +155,7 @@ const openItem = (item) => {
     })
     .to(signature, { x: "100%", opacity: 0 }, "start")
     .to(contentEl, {
-      rotation: 90,
-      // transformOrigin: "100% 100%",
+      x: "-100%",
       opacity: 0,
       height: 0,
     })
@@ -316,7 +315,7 @@ const closeItem = (item) => {
     .to(
       overlayRows,
       {
-        //ease: 'expo',
+        // ease: "expo",
         scaleY: 0,
         onComplete: () => {
           item.preview.DOM.el.classList.remove("preview--current");
@@ -330,11 +329,12 @@ const closeItem = (item) => {
       contentEl,
       {
         duration: 1,
-        rotation: 0,
+        x: "0%",
         opacity: 1,
         height: "auto",
+        ease: "power2.inOut",
       },
-      "-=1"
+      "<1"
     )
     .to(signature, { color: "black" });
 };
