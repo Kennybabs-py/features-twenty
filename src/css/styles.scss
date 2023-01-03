@@ -48,14 +48,13 @@ body {
 
 main {
   padding: 1.5rem 1rem 0rem;
-  // min-height: 100vh;
   display: grid;
   grid-template-columns: 100%;
   grid-template-areas: "frame" "content";
   grid-template-rows: min-content 1fr;
   grid-row-gap: 1vh;
-  // overflow-y: hidden;
   box-sizing: border-box;
+  background-color: #efe6d7;
 
   @media (min-width: 900px) {
     padding: 1.5rem 2.5rem;

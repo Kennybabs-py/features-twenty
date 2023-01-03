@@ -79,14 +79,10 @@ const loadingAnimationOut = () => {
 
 const entranceAnimation = () => {
   const tl = gsap.timeline();
-  tl.add(maskAnimation()).add(loadingAnimationOut(), 0.2).to(
-    contentEl,
-    {
-      opacity: 1,
-      duration: 0.1,
-    },
-    0.8
-  );
+  tl.add(maskAnimation()).add(loadingAnimationOut(), 0.2).to(contentEl, {
+    opacity: 1,
+    duration: 0.1,
+  });
 };
 
 const loadingAnimation = () => {
