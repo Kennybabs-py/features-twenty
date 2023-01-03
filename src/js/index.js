@@ -70,7 +70,7 @@ const loadingAnimationOut = () => {
     ease: "power2.inOut",
   }).to(contentEl, {
     opacity: 1,
-    duration: 1.3,
+    duration: 1,
     ease: "power2.inOut",
   });
 
@@ -85,19 +85,15 @@ const entranceAnimation = () => {
       opacity: 1,
       duration: 0.3,
     },
-    1
+    0.8
   );
-  // .from(
-  //   itemEl,
-  //   {
-  //     opacity: 0,
-  //     duration: 1,
-  //     y: "100%",
-  //     ease: "power2.out",
-  //     stagger: 0.1,
-  //   },
-  //   0.8
-  // );
+  // .from(itemEl, {
+  //   opacity: 0,
+  //   duration: 1,
+  //   y: 100,
+  //   ease: "power2.out",
+  //   stagger: 2,
+  // });
 };
 
 const loadingAnimation = () => {
@@ -142,12 +138,15 @@ const loadingAnimation = () => {
       ease: "power2.inOut",
       delay: 2,
     })
-    .to(preloaderText, {
-      y: "100%",
-      opacity: 0,
-      ease: "power2.inOut",
-      delay: 1,
-    });
+    .to(
+      preloaderText,
+      {
+        y: "100%",
+        opacity: 0,
+        ease: "power2.inOut",
+      },
+      "<"
+    );
 };
 
 loadingAnimation();
@@ -167,7 +166,8 @@ const openItem = (item) => {
     })
     .to(signature, { x: "100%", opacity: 0 }, "start")
     .to(contentEl, {
-      rotationY: -90,
+      rotation: 90,
+      // transformOrigin: "100% 100%",
       opacity: 0,
       height: 0,
     })
@@ -340,8 +340,8 @@ const closeItem = (item) => {
     .to(
       contentEl,
       {
-        duration: 2,
-        rotationY: 0,
+        duration: 1,
+        rotation: 0,
         opacity: 1,
         height: "auto",
       },

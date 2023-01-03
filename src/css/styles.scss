@@ -54,6 +54,7 @@ main {
   grid-template-areas: "frame" "content";
   grid-template-rows: min-content 1fr;
   grid-row-gap: 1vh;
+  // overflow-y: hidden;
   box-sizing: border-box;
 
   @media (min-width: 900px) {
@@ -114,13 +115,6 @@ main {
     font-family: "Scriptin";
     font-family: "Josefin-thin";
   }
-
-  .percent {
-    position: absolute;
-    right: 5%;
-    bottom: 1%;
-    font-size: clamp(3rem, 10vw, 6rem);
-  }
 }
 
 .mask {
@@ -153,7 +147,7 @@ main {
 
 .content--hidden {
   pointer-events: none;
-  transform-origin: 0% 50%;
+  transform-origin: 0% 100%;
 }
 
 .item {
