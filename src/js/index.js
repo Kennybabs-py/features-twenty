@@ -83,17 +83,10 @@ const entranceAnimation = () => {
     contentEl,
     {
       opacity: 1,
-      duration: 0.3,
+      duration: 0.1,
     },
     0.8
   );
-  // .from(itemEl, {
-  //   opacity: 0,
-  //   duration: 1,
-  //   y: 100,
-  //   ease: "power2.out",
-  //   stagger: 2,
-  // });
 };
 
 const loadingAnimation = () => {
