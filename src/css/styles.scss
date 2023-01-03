@@ -7,6 +7,15 @@
   font-family: "Ginger";
   src: url("../fonts/Ginger/Ginger.ttf");
 }
+@font-face {
+  font-family: "Josefin-thin";
+  src: url("../fonts/JosefinSans-Thin.ttf");
+}
+
+@font-face {
+  font-family: "Scriptin";
+  src: url("../fonts/SCRIPTIN.ttf");
+}
 
 *,
 *::before,
@@ -52,6 +61,16 @@ main {
   }
 }
 
+.signature {
+  font-size: clamp(0.6rem, 3vw, 1rem);
+  font-family: "Scriptin";
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  color: black;
+  z-index: 100;
+}
+
 .preview-visible .frame {
   opacity: 0;
   z-index: 100;
@@ -63,48 +82,56 @@ main {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   padding: 1rem;
   background-color: #000;
   color: #fff;
-  font-family: "Ginger";
-  z-index: 50;
+  z-index: 10;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+  gap: 2rem;
   box-sizing: border-box;
 
   .preloader__title {
     text-align: center;
+    font-family: "Ginger";
     font-size: clamp(2rem, 10vw, 5rem);
     font-weight: 800;
     margin-bottom: 2rem;
-    transform: translateY(-101%);
-  }
-
-  .preloader__subtitle {
-    text-align: center;
-    font-size: clamp(1.5rem, 6vw, 3rem);
-    font-weight: 600;
-    line-height: 2rem;
-    margin-bottom: 2rem;
+    opacity: 0;
+    transform: translateY(-100%);
   }
 
   .preloader__text {
     text-align: center;
-    font-size: clamp(1rem, 3vw, 2rem);
+    font-size: clamp(1.5rem, 3vw, 3rem);
     font-weight: 400;
-    line-height: 24px;
-    font-family: "Manrope";
+    opacity: 0;
+    transform: translateX(-100%);
+    font-family: "Scriptin";
+    font-family: "Josefin-thin";
   }
 
-  .percent__loader {
+  .percent {
     position: absolute;
     right: 5%;
     bottom: 1%;
-
-    span {
-      font-size: clamp(3rem, 10vw, 6rem);
-    }
+    font-size: clamp(3rem, 10vw, 6rem);
   }
+}
+
+.mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 30;
+  opacity: 0;
+  visibility: hidden;
 }
 
 .content {
@@ -112,6 +139,8 @@ main {
   max-width: 600px;
   margin: 0 auto;
   min-height: 300px;
+  opacity: 0;
+  z-index: 30;
 
   @media (min-width: 900px) {
     max-width: none;
@@ -124,7 +153,7 @@ main {
 
 .content--hidden {
   pointer-events: none;
-  transform-origin: 0% 100%;
+  transform-origin: 0% 50%;
 }
 
 .item {
@@ -199,6 +228,7 @@ main {
   grid-template-columns: repeat(2, 1fr);
   pointer-events: none;
   grid-template-rows: 100%;
+  z-index: 80;
 }
 
 .overlay__row {
@@ -221,6 +251,7 @@ main {
   position: relative;
   grid-area: content;
   pointer-events: none;
+  z-index: 100;
 }
 
 .preview {

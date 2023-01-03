@@ -7,16 +7,26 @@ const images = document.querySelectorAll("img");
 let isLoaded = false;
 let isLoadingAnimationEnd = false;
 const imgLoad = imagesLoaded(images);
+
+// preloader and svg morph targets
 const preloader = document.querySelector(".preloader");
 const preloaderTitle = document.querySelector(".preloader__title");
-const preloaderSubtitle = document.querySelector(".preloader__subtitle");
 const preloaderText = document.querySelector(".preloader__text");
+const svgMask = document.querySelector(".mask");
+const svgPath = document.querySelector(".path");
+const signature = document.querySelector(".signature");
 
 // body element
 const body = document.body;
 
+// main element
+const mainEl = document.querySelector("#main");
+
 // .content element
 const contentEl = document.querySelector(".content");
+
+// items element
+const itemEl = document.querySelector(".item");
 
 // frame element
 const frameEl = document.querySelector(".frame");
@@ -37,73 +47,110 @@ const items = [];
 );
 
 // preloader animation
+const maskAnimation = () => {
+  const tl = gsap.timeline();
+  const start = "M 0 100 V 50 Q 50 0 100 50 V 100 z";
+  const end = "M 0 100 V 0 Q 50 0 100 0 V 100 z";
+
+  gsap.set(svgMask, { autoAlpha: 1 });
+  tl.to(svgPath, {
+    duration: 0.8,
+    attr: { d: start },
+    ease: "power2.in",
+  }).to(svgPath, { duration: 0.4, attr: { d: end }, ease: "power2.out" });
+
+  return tl;
+};
+
+const loadingAnimationOut = () => {
+  const tl = gsap.timeline();
+  tl.to(preloader, {
+    y: -window.innerHeight,
+    duration: 1.3,
+    ease: "power2.inOut",
+  }).to(contentEl, {
+    opacity: 1,
+    duration: 1.3,
+    ease: "power2.inOut",
+  });
+
+  return tl;
+};
+
 const entranceAnimation = () => {
   const tl = gsap.timeline();
-  tl.to(preloaderTitle, {
-    y: -100,
-    y: "0%",
-    duration: 1,
-    ease: "power2.inOut",
-  })
-    .to(
-      preloaderText,
-      {
-        duration: 1,
-        opacity: 1,
-        y: 0,
-        stagger: 0.1,
-        ease: "power2.out",
-      },
-      0.6
-    )
-    .to(
-      preloaderSubtitle,
-      {
-        duration: 1,
-        opacity: 1,
-        y: 0,
-        stagger: 0.1,
-        ease: "power2.out",
-      },
-      0.6
-    )
-    .to(
-      preloader,
-      {
-        yPercent: -100,
-        duration: 1.25,
-        ease: "power4.inOut",
-      },
-      0
-    );
+  tl.add(maskAnimation()).add(loadingAnimationOut(), 0.2).to(
+    contentEl,
+    {
+      opacity: 1,
+      duration: 0.3,
+    },
+    1
+  );
+  // .from(
+  //   itemEl,
+  //   {
+  //     opacity: 0,
+  //     duration: 1,
+  //     y: "100%",
+  //     ease: "power2.out",
+  //     stagger: 0.1,
+  //   },
+  //   0.8
+  // );
 };
 
 const loadingAnimation = () => {
-  const tl = gsap
+  gsap
     .timeline({
       onComplete: () => {
         isLoadingAnimationEnd = true;
         if (isLoaded) entranceAnimation();
       },
     })
-    .from(".loading", {
-      yPercent: 100,
-      ease: "power3.inOut",
+    .to(preloaderTitle, {
+      y: "0%",
+      opacity: 1,
       duration: 1,
+      ease: "power2.inOut",
+      delay: 1,
     })
-    .from(
-      ".loading-image",
+    .to(preloaderTitle, {
+      y: -100,
+      delay: 2,
+      duration: 1,
+      ease: "power2.inOut",
+    })
+    .to(
+      preloaderText,
       {
-        y: 80,
-        duration: 1,
-        ease: "power2.out",
+        x: "0%",
+        opacity: 1,
+        duration: 2,
+        ease: "power3.in",
       },
-      0.5
-    );
+      "<"
+    )
+    .to(preloaderText, {
+      y: -50,
+      duration: 1,
+      ease: "power2.inOut",
+    })
+    .to(preloaderTitle, {
+      x: "100%",
+      opacity: 0,
+      ease: "power2.inOut",
+      delay: 2,
+    })
+    .to(preloaderText, {
+      y: "100%",
+      opacity: 0,
+      ease: "power2.inOut",
+      delay: 1,
+    });
 };
 
 loadingAnimation();
-
 imgLoad.on("always", function () {
   isLoaded = true;
   if (isLoadingAnimationEnd) entranceAnimation();
@@ -118,30 +165,30 @@ const openItem = (item) => {
         ease: "power3.inOut",
       },
     })
-    .add(() => {
-      // pointer events none to the content
-      contentEl.classList.add("content--hidden");
-    }, "start")
+    .to(signature, { x: "100%", opacity: 0 }, "start")
     .to(contentEl, {
-      rotation: 90,
+      rotationY: -90,
       opacity: 0,
       height: 0,
     })
+    .add(() => {
+      contentEl.classList.add("content--hidden");
+    }, "start")
 
     .addLabel("start", 0)
     .set(
       [item.preview.DOM.innerElements, item.preview.DOM.backCtrl],
       {
         opacity: 0,
-      }
-      // "start"
+      },
+      "start"
     )
     .to(
       overlayRows,
       {
         scaleY: 1,
-      }
-      // "start"
+      },
+      "start"
     )
 
     .addLabel("content", "start+=0.6")
@@ -204,7 +251,8 @@ const openItem = (item) => {
         opacity: 1,
       },
       "content"
-    );
+    )
+    .to(signature, { x: "0%", opacity: 1, color: "white" });
   setTimeout(() => {
     window.scrollTo(0, 0);
   }, 1000);
@@ -214,7 +262,7 @@ const closeItem = (item) => {
   gsap
     .timeline({
       defaults: {
-        duration: 1,
+        duration: 2,
         ease: "power3.inOut",
       },
     })
@@ -292,12 +340,14 @@ const closeItem = (item) => {
     .to(
       contentEl,
       {
-        rotation: 0,
+        duration: 2,
+        rotationY: 0,
         opacity: 1,
         height: "auto",
       },
-      1
-    );
+      "-=1"
+    )
+    .to(signature, { color: "black" });
 };
 
 for (const item of items) {
