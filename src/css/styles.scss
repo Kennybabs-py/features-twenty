@@ -105,6 +105,16 @@ main {
     transform: translateY(-100%);
   }
 
+  .preloader__subtitle {
+    text-align: center;
+    font-size: clamp(1.5rem, 3vw, 3rem);
+    font-weight: 400;
+    opacity: 0;
+    transform: translateX(100%);
+    font-family: "Scriptin";
+    font-family: "Josefin-thin";
+  }
+
   .preloader__text {
     text-align: center;
     font-size: clamp(1.5rem, 3vw, 3rem);
@@ -325,6 +335,7 @@ main {
   p {
     line-height: 1.1;
     opacity: 0;
+    line-height: 36px;
   }
 
   & > span {

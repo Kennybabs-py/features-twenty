@@ -11,6 +11,7 @@ const imgLoad = imagesLoaded(images);
 // preloader and svg morph targets
 const preloader = document.querySelector(".preloader");
 const preloaderTitle = document.querySelector(".preloader__title");
+const preloaderSubtitle = document.querySelector(".preloader__subtitle");
 const preloaderText = document.querySelector(".preloader__text");
 const svgMask = document.querySelector(".mask");
 const svgPath = document.querySelector(".path");
@@ -79,10 +80,14 @@ const loadingAnimationOut = () => {
 
 const entranceAnimation = () => {
   const tl = gsap.timeline();
-  tl.add(maskAnimation()).add(loadingAnimationOut(), 0.2).to(contentEl, {
-    opacity: 1,
-    duration: 0.1,
-  });
+  tl.add(maskAnimation()).add(loadingAnimationOut(), 0.2).to(
+    contentEl,
+    {
+      opacity: 1,
+      duration: 0.1,
+    },
+    0.8
+  );
 };
 
 const loadingAnimation = () => {
@@ -92,50 +97,44 @@ const loadingAnimation = () => {
         isLoadingAnimationEnd = true;
         if (isLoaded) entranceAnimation();
       },
+      defaults: {
+        ease: "power3.inOut",
+        duration: 2,
+      },
     })
     .to(preloaderTitle, {
       y: "0%",
       opacity: 1,
-      duration: 1,
-      ease: "power2.inOut",
+      delay: 1,
+      ease: "bounce",
+    })
+    .to(preloaderTitle, {
+      x: -400,
+      delay: 2,
+      opacity: 0,
+    })
+    .to(preloaderSubtitle, {
+      x: "0%",
+      opacity: 1,
       delay: 1,
     })
-    .to(preloaderTitle, {
-      y: -100,
+    .to(preloaderSubtitle, {
+      y: -300,
       delay: 2,
-      duration: 1,
-      ease: "power2.inOut",
-    })
-    .to(
-      preloaderText,
-      {
-        x: "0%",
-        opacity: 1,
-        duration: 2,
-        ease: "power3.in",
-      },
-      "<"
-    )
-    .to(preloaderText, {
-      y: -50,
-      duration: 1,
-      ease: "power2.inOut",
-    })
-    .to(preloaderTitle, {
-      x: "100%",
       opacity: 0,
-      ease: "power2.inOut",
-      delay: 2,
     })
-    .to(
-      preloaderText,
-      {
-        y: "100%",
-        opacity: 0,
-        ease: "power2.inOut",
-      },
-      "<"
-    );
+    .to(preloaderText, {
+      x: "0%",
+      opacity: 1,
+    })
+    .to(preloaderText, {
+      y: -window.innerHeight / 2,
+      duration: 10,
+    })
+    .to(preloaderText, {
+      y: -window.innerHeight,
+      opacity: 0,
+    });
 };
 
 loadingAnimation();
